@@ -9,7 +9,7 @@ import time
 from datetime import datetime
 from time import strftime
 now=datetime.now()
-loadtime= now.strftime("%m/%d/%Y %I:%M %p")
+loadtime= now.strftime("%m/%d/%Y %I:%M %p") #my shopping cart project
 
 load_dotenv
 
@@ -21,7 +21,7 @@ def to_usd(my_price):
 
 while True:
     symbol = input('Symbol: ')
-    if symbol.isalpha():
+    if symbol.isalpha(): #stackoverflow
         break
     print("Sorry expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
     exit()
@@ -37,11 +37,22 @@ request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&sym
 response = requests.get(request_url)
 #print(type(response))
 #print(response.status_code)
+
+
+    
+
 #print(response.text)
 #
 #quit()
 
+
+
 parsed_response = json.loads(response.text)
+
+if json.loads(response.text) == {"Error Message": "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_DAILY."}:
+    print("Sorry, couldn't find any trading data for that stock symbol")
+    exit()
+
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
@@ -63,9 +74,8 @@ for date in dates:
     low_prices.append(float(low_price))
 
 recent_high = max(high_prices)
-   
-
 recent_low = min(low_prices)
+
 
 csv_file_path = os.path.join(os.path.dirname(__file__), "data", "prices.csv")
 
@@ -87,6 +97,14 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
 
         })
 
+
+rec_price=(float(latest_close)-float(recent_low))/float(recent_low)
+#print(rec_price)
+if rec_price <= 0.2:
+    recomendation="Buy!"
+else:
+    recomendation ="Don't Buy."
+
 print("-------------------------")
 print("SELECTED SYMBOL: "+symbol.upper())
 print("-------------------------")
@@ -97,9 +115,9 @@ print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
-print("RECENT LOW: $99,000.00")
+print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+print("RECOMMENDATION: "+recomendation)
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print(f"Writing data to CSV file: {csv_file_path}...")
