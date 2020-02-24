@@ -21,7 +21,7 @@ def to_usd(my_price):
 
 while True:
     symbol = input('Symbol: ')
-    if symbol.isalpha(): #stackoverflow
+    if symbol.isalpha() and len(symbol) > 2 and len(symbol) < 6 : #stackoverflow
         break
     print("Sorry expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
     exit()
@@ -77,7 +77,7 @@ recent_high = max(high_prices)
 recent_low = min(low_prices)
 
 
-csv_file_path = os.path.join(os.path.dirname(__file__), "data", "prices.csv")
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
 
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
@@ -102,8 +102,11 @@ rec_price=(float(latest_close)-float(recent_low))/float(recent_low)
 #print(rec_price)
 if rec_price <= 0.2:
     recomendation="Buy!"
+    reason = "Since the stock's most recent closing price was was not greater than 20 percent from its recent low, you should buy!"
 else:
     recomendation ="Don't Buy."
+    reason = "Since the stock's most recent closing price was was greater than 20 percent from its recent low, you should not buy!"
+
 
 print("-------------------------")
 print("SELECTED SYMBOL: "+symbol.upper())
@@ -118,7 +121,7 @@ print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
 print("RECOMMENDATION: "+recomendation)
-print("RECOMMENDATION REASON: TODO")
+print("RECOMMENDATION REASON: "+reason)
 print("-------------------------")
 print(f"Writing data to CSV file: {csv_file_path}...")
 print("-------------------------")
