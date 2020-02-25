@@ -22,7 +22,7 @@ python-dotnev
 ```
 These packages will be installed after the virtual environment is set up.
 
-###Environment Setup
+### Environment Setup
 
 We need to create and activate a new Anaconda virtual environment. Do this by first placing in the command line:
 
@@ -79,11 +79,11 @@ This means that even though your stock symbol is inputted in a format that the p
 
 All information that on the stock symbol you chose will be inputted into a csv file named: *prices.csv* under the data folder. It will include data on the *timestamp, open price, high price, low price, close price* and *volume*.
 
-### Recomendation 
+### Recommendation 
 
 #### Disclaimer
 
-A recomendation of either *"Buy!"* or *"Don't Buy."* will be given by the program. This is merely a recommendation, even though the program will perform its function without fail, it is a program that recommends, and it is not able to predict the future. Buy stocks at your own risk. 
+A recommendation of either *"Buy!"* or *"Don't Buy."* will be given by the program. This is merely a recommendation, even though the program will perform its function without fail, it is a program that recommends, and it is not able to predict the future. Buy stocks at your own risk. 
 
 #### How the Recommendation is Calculated (in pseudocode)
 
