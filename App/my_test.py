@@ -1,7 +1,7 @@
 import os
-import pytest
+#import pytest
 
-from roboadvisor import to_usd, get_response#, print_to_csv
+from roboadvisor import to_usd, get_response
 
 CI_ENV = os.environ.get("CI")==True
 
