@@ -1,17 +1,17 @@
 # app/robo_advisor.py
-import requests
+
 import json
 import csv
 import os
-from dotenv import load_dotenv
 import datetime
 import time
 from datetime import datetime
 from time import strftime
 now=datetime.now()
 loadtime= now.strftime("%m/%d/%Y %I:%M %p") #my shopping cart project
-
-load_dotenv
+from dotenv import load_dotenv
+import requests
+load_dotenv()
 
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 
