@@ -21,7 +21,7 @@ def test_to_usd(): #My Shopping_cart test code
 
 
     #below test does not work because my formatting of the data does not come until after I try to write the data into the csv file. 
-    #In my roboadvisor.py I don't format the data until I am writing the rows of the csv file.
+    #In my roboadvisor.py I don't format the data until I am writing the rows of the csv file and I finished this test hoping it will run but it runs into errors.
 
 #def test_data_format_csv():
 #    parsed_response= {"Meta Data": {
