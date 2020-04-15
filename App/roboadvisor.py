@@ -52,7 +52,7 @@ def printout():
     print("-------------------------")
 def get_response(symbol):
     '''
-    Pulls the information from the website for the specific stock inputted. It uses the symbol and the api key to download the data. IF the data is not available, the program will stop itself.
+    Pulls the information from the website for the specific stock inputed. It uses the symbol and the api key to download the data. IF the data is not available, the program will stop itself.
     
     '''
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
