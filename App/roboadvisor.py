@@ -13,6 +13,8 @@ loadtime= now.strftime("%m/%d/%Y %I:%M %p") #my shopping cart project
 
 load_dotenv
 
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
+
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 def printout():
@@ -77,40 +79,40 @@ def prices():
         low_prices.append(float(low_price))
     recent_high = max(high_prices)
     recent_low = min(low_prices)
+if __name__ == "__main__":
+    while True:
+        symbol = input('Symbol: ')
+        if symbol.isalpha() and len(symbol) > 2 and len(symbol) < 6 : #stackoverflow
+            break
+        print("Sorry expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
+        exit()
 
-while True:
-    symbol = input('Symbol: ')
-    if symbol.isalpha() and len(symbol) > 2 and len(symbol) < 6 : #stackoverflow
-        break
-    print("Sorry expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
-    exit()
-
-api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+   
+    csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
 
-parsed_response = get_response(symbol)
-last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
-read_response(parsed_response)
+    parsed_response = get_response(symbol)
+    last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
+    read_response(parsed_response)
 
-dates = list(tsd.keys())
+    dates = list(tsd.keys())
 
-latest_day=dates[0]
+    latest_day=dates[0]
 
-latest_close = tsd[latest_day]["4. close"]
+    latest_close = tsd[latest_day]["4. close"]
 
-prices()
+    prices()
 
-rec_price=(float(latest_close)-float(recent_low))/float(recent_low)
+    rec_price=(float(latest_close)-float(recent_low))/float(recent_low)
 
-if rec_price <= 0.2:
-    recomendation="Buy!"
-    reason = "Since the stock's most recent closing price was was not greater than 20 percent from its recent low, you should buy!"
-else:
-    recomendation ="Don't Buy."
-    reason = "Since the stock's most recent closing price was was greater than 20 percent from its recent low, you should not buy!"
+    if rec_price <= 0.2:
+        recomendation="Buy!"
+        reason = "Since the stock's most recent closing price was was not greater than 20 percent from its recent low, you should buy!"
+    else:
+        recomendation ="Don't Buy."
+        reason = "Since the stock's most recent closing price was was greater than 20 percent from its recent low, you should not buy!"
 
-printout()
+    printout()
 
 
 
