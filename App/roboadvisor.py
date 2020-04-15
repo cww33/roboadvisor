@@ -1,5 +1,6 @@
 # app/robo_advisor.py
-import requests
+#import requests
+
 import json
 import csv
 import os
