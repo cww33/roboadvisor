@@ -16,8 +16,21 @@ load_dotenv
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 
 def to_usd(my_price):
+    '''
+    Converts the numbers into a USD type format.
+    
+    Example: to_usd(567.22) = $567.22
+
+
+    '''
+
     return "${0:,.2f}".format(my_price)
 def printout():
+
+    '''
+    Prints out the final culmalitive information of the stock market data. Includes a recomendation and an explanation for the recomendation whether or not to buy.
+    '''
+
     print("-------------------------")
     print("SELECTED SYMBOL: "+symbol.upper())
     print("-------------------------")
@@ -38,6 +51,10 @@ def printout():
     print("HAPPY INVESTING!")
     print("-------------------------")
 def get_response(symbol):
+    '''
+    Pulls the information from the website for the specific stock inputted. It uses the symbol and the api key to download the data. IF the data is not available, the program will stop itself.
+    
+    '''
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
     response = requests.get(request_url)
     parsed_response = json.loads(response.text)
@@ -46,6 +63,9 @@ def get_response(symbol):
         exit()
     return parsed_response
 def print_to_csv():
+    '''
+    formats the information into rows and then exports the information to a csv file.
+    '''
     csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
     with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
         writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
@@ -68,6 +88,9 @@ def read_response(parsed_response):
    tsd = parsed_response["Time Series (Daily)"]
    
 def prices():
+    '''
+    Calculates the recent highs and lows for the specific stock inputted. It inputs all the relevant information into a list and looks for the max or the min for the respective lists.
+    '''
     global recent_high
     global recent_low
     high_prices=[]
