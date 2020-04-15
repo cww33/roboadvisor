@@ -17,4 +17,4 @@ def test_get_response(): #Professor's Test code
 def test_to_usd():
     result= to_usd(73498.82)
     assert result == "$73,498.82"
-    assert to_usd(9.9) == "$9.90"
+    assert to_usd(9.8) == "$9.80"
